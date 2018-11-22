@@ -6,12 +6,12 @@ class API {
     this.reviewsUrl = this.baseUrl + '/reviews'
   }
 
-  static createPlayer (player) {
-    fetch(this.playersUrl, {
+  static createPlayer(player) {
+    return fetch(this.playersUrl, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(player)
-    })
+    }).then(res => res.json())
   }
 
   static getScores() {
@@ -25,6 +25,22 @@ class API {
       body: JSON.stringify({score: scoreObject})
     })
   }
+
+  static getReviews() {
+    return fetch(this.reviewsUrl)
+      .then(res => res.json())
+  }
+
+
+  static createReview(review) {
+    fetch(this.reviewsUrl, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(review)
+    })
+  }
+
+
 }
 
 API.init()

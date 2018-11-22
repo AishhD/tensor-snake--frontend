@@ -1,15 +1,134 @@
+
+
 body {
+  position: relative;
   background-color: #111111;
   text-align: center;
   color: #FFF;
+  margin: 0;
+  padding: 0;
+  background-image: url("../img/snake.gif");
+}
+
+#main {
+  display: block;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#main h1 {
+  position: absolute;
+  top: 48%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 1;
+  opacity: 1;
+  transition: 1s
+}
+#main h1.not-dis {
+  opacity: 0.2;
+}
+
+#controllerDiv {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: -100%;
+  max-width: 820px;
+  background-color: #222;
+  transition: 2s ease;
+  z-index: 3;
+}
+
+#controllerDiv.trained {
+  max-width: unset;
+  z-index: 1;
+}
+
+#controllerDiv.trained .panel {
+  flex-grow: 0;
+}
+
+#score-list table {
+  font-size: 28px;
+  width: 29%;
+  table-layout: fixed;
+}
+#score-list h2 {
+  font-size: 40px
+}
+#score-list tr th {
+  font-size: 35px;
+}
+#score-list td {
+  padding: 3px;
+}
+#score-list tr:nth-child(even) {
+  background-color: rgba(48, 147, 60, 0.5);
+}
+
+#controllerDiv.trained .controller-panels{
+  padding-left: 30px;
+  padding-right: 60px;
+  max-width: unset;
+  justify-content: space-between;
+}
+/* #controllerDiv.trained .training-panel {
+  position: absolute;
+  left: 2%;
+}
+#controllerDiv.trained .joystick-panel {
+  position: absolute;
+  right: 3%;
+} */
+
+#controllerDiv.setup {
+  top: 25%;
+}
+
+.titleScreen {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#setup-form input[type="text"] {
+  width: 300px;
+  height: 80px;
+  font-size: 40px;
+  text-align: center;
+}
+
+#userSettings {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#score-list {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #game-container {
   display: block;
-  width: 1200px;
+  width: 1600px;
   position: relative;
   margin: 0 auto;
   border: 2px solid #FFFFFF;
+  z-index: 2;
 }
 
 #game-over {
@@ -26,14 +145,318 @@ body {
   font-size: 120px;
 }
 
-#game-over button {
+/* #game-over button { */
+button, input[type="submit"] {
   display: block;
+  border: none;
   margin: 0 auto 10px;
-  height: 60px;
-  min-width: 200px;
+  height: 80px;
+  width: 250px;
   padding: 0 20px;
-  border-radius: 10px;
-  font-size: 25px;
+  /* border-radius: 10px; */
+  font-size: 20px;
   text-transform: uppercase;
   font-weight: bold;
 }
+
+img.avatar {
+    width: 60px;
+    height: 75px;
+  }
+
+.box {
+    border: 1px solid black ;
+    width: 85px;
+    display: inline-flex;
+}
+
+.checked {
+    color: orange;
+}
+
+.rating-container {
+    border: 1px solid black ;
+    width: 32rem;
+}
+
+.rating-container h4,
+.rating-container form {
+    text-align: center;
+}
+
+.rating-container input {
+    height: 2em;
+    width: 320px;
+    max-width: 90%;
+
+}
+
+.rating-container  input[type="submit"]{
+    width: 150px;
+    padding: 1em;
+    display: inline-block;
+}
+
+.fieldset {
+    border: none;
+}
+
+.rating-container textarea {
+    width: 320px;
+}
+
+.controller-panels {
+    display: flex;
+    flex-direction: row;
+    margin: 9px auto 0;
+    max-width: 1000px;
+  }
+  .panel {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+  .panel:first-child {
+    border-right: 1px dashed #565656;
+    padding: 0 22px 0 13px;
+    width: 396px;
+  }
+  .panel:last-child {
+    padding: 0 9px 0 22px;
+    width: 353px;
+  }
+  .panel-row {
+    display: flex;
+    flex-direction: row;
+  }
+  .panel-cell {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    justify-content: center;
+    position: relative;
+  }
+  .panel-cell-fill {
+    flex-grow: 1;
+  }
+  .panel-cell p {
+    color: #8b8b8b;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  .controller-panels button {
+    background: none;
+    border: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+  #train-status {
+    width: 124px;
+  }
+  
+  /** Training panel. **/
+  .big-buttons {
+    justify-content: space-between;
+  }
+  .big-buttons button {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+  }
+  .big-buttons button span {
+    border-bottom: 2px solid #484848;
+    border-top: 2px solid #484848;
+    color: #aaa;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 9px 11px;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .params-webcam-row {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 35px;
+  }
+  .webcam-box-outer {
+    background: black;
+    border: 1px solid #585858;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 9px;
+  }
+  .webcam-box-inner {
+    border: 1px solid #585858;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 160px;
+  }
+  #webcam {
+    height: 160px;
+    transform: scaleX(-1);
+  }
+  .hyper-params {
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+  }
+  .dropdown {
+    flex-direction: column;
+    width: 110px;
+    margin-bottom: 10px;
+  }
+  .dropdown label {
+    color: #777;
+    font-size: 11px;
+    display: block;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .dropdown .select {
+    position: relative;
+  }
+  .dropdown .select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none;
+    border: none;
+    border-bottom: solid 1px #313131;
+    border-radius: 0;
+    color: #c9c9c9;
+    display: block;
+    font-size: 12px;
+    outline: none;
+    padding: 6px 0;
+    width: 100%;
+  }
+  .dropdown .select::after {
+    content: "arrow_drop_down";
+    color: #999;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    position: absolute;
+    right: 0;
+    top: 6px;
+    pointer-events: none;
+  }
+  
+  /** Joystick panel. **/
+  .joystick-panel {
+    margin-top: 13px;
+  }
+  .panel-cell .help-text {
+    font-size: 10px;
+    font-style: italic;
+    left: 0;
+    line-height: 1.1;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    top: 0;
+    position: absolute;
+  }
+  .panel-row-top .panel-cell-left {
+    background: url("./images/pointer.svg");
+    background-repeat: no-repeat;
+    background-size: 38%;
+    background-position: 98% 46%;
+  }
+  .panel-row-middle .panel-cell {
+    height: 132px;
+  }
+  .thumb-box {
+    display: inline-block;
+  }
+  .panel-row-middle .thumb-box {
+    margin-top: 18px;
+  }
+  .thumb-box-outer {
+    background: black;
+    border: 1px solid #585858;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 9px;
+    position: relative;
+    transition: box-shadow 0.3s;
+  }
+  [data-active="up"] .panel-row-top .thumb-box-outer,
+  [data-active="down"] .panel-row-bottom .thumb-box-outer,
+  [data-active="left"] .panel-cell-left .thumb-box-outer,
+  [data-active="right"] .panel-cell-right .thumb-box-outer {
+    box-shadow: 0 0 4px 4px #ffaa00;
+  }
+  .thumb-box-inner {
+    border: 1px solid #585858;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 66px;
+  }
+  .thumb {
+    height: 66px;
+    transform: scaleX(-1);
+  }
+  .thumb-box-outer .record-button {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  .thumb-box-outer .record-button span {
+    background: #111;
+    border: 1px solid #585858;
+    border-radius: 3px;
+    bottom: 9px;
+    color: #f8f8f8;
+    display: block;
+    font-size: 8px;
+    left: 9px;
+    position: absolute;
+    right: 9px;
+    opacity: 0.5;
+  }
+  
+  /** Footer. **/
+  #copyright {
+    color: #f8f8f8;
+    font-weight: 300;
+    margin: 12px 0;
+    text-align: center;
+  }
+  
+  #no-webcam {
+    display: none;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    padding: 30px;
+    line-height: 30px;
+  }
