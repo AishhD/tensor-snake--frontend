@@ -1,6 +1,6 @@
 class API {
   static init() {
-    this.baseUrl = 'http://localhost:3000/api/v1'
+    this.baseUrl = window.location.origin.includes('github') ? 'https://tensor-snake.herokuapp.com/api/v1' : 'http://localhost:3000/api/v1'
     this.scoresUrl = this.baseUrl + '/scores'
     this.playersUrl = this.baseUrl + '/users'
     this.reviewsUrl = this.baseUrl + '/reviews'
